@@ -1,0 +1,29 @@
+{% extends "body.j2" %}{% block content %}
+<div class="container">
+  <form action="" name="calc" class="calculator">
+    <input type="text" id="pantalla" class="value" readonly />
+
+    <span class="num plus" data-operation="+"><i>+</i></span>
+    <span class="num" data-operation="-"><i>-</i></span>
+    <span class="num" data-operation="/"><i>/</i></span>
+    <span class="num" data-operation="*"><i>*</i></span>
+    <span class="num" data-operation="7"><i>7</i></span>
+    <span class="num" data-operation="8"><i>8</i></span>
+    <span class="num" data-operation="9"><i>9</i></span>
+    <span class="num" data-operation="%"><i>%</i></span>
+    <span class="num" data-operation="4"><i>4</i></span>
+    <span class="num" data-operation="5"><i>5</i></span>
+    <span class="num" data-operation="6"><i>6</i></span>
+    <span class="num" data-operation="//"><i>//</i></span>
+    <span class="num" data-operation="1"><i>1</i></span>
+    <span class="num" data-operation="2"><i>2</i></span>
+    <span class="num" data-operation="3"><i>3</i></span>
+    <span class="num" data-operation="**"><i>**</i></span>
+    <span class="num" data-operation="0"><i>0</i></span>
+
+    <span class="num equal" data-operation="equal"><i>=</i></span>
+    <span class="num clear" data-operation="clear"><i>C</i></span>
+  </form>
+</div>
+{% endblock %}
+
