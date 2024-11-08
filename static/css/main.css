@@ -1,47 +1,61 @@
+:root {
+  --background_light: #ebebeb;
+  --white: #fff;
+  --dark_blue: #0b0a2e;
+  --typography_color: #697586;
+  --yellow: ##ffb627;
+  --blue: #3366cc;
+  --red: #e41414;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Gotham Book", Roboto, sans-serif;
 }
+
 body {
-  display: flex;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-  background-color: #aaa;
+  overflow-x: hidden;
+  background-color: var(--background_light);
 }
 
+h1 {
+  color: #333;
+}
+main {
+  height: 100vh;
+  background-color: var(--background_light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#simulation-container {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+}
+
+#controls {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+input[type="number"] {
+  width: 50px;
+}
 button {
   padding: 10px 20px;
   font-size: 16px;
-  font-weight: 500;
-  color: #333;
-  background-color: #fff;
-  border: 2px solid #333;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
 }
-
 button:hover {
-  background-color: #333;
-  color: #fff;
-  transform: scale(1.05);
-}
-
-button:active {
-  transform: scale(1);
-}
-
-
-#temperature-grid {
-  display: grid;
-  grid-template-columns: repeat(10, 0fr);
-}
-.cell {
-  width: 20px;
-  height: 20px;
-  background-color: #202020;
-  text-align: center;
+  background-color: #45a049;
 }

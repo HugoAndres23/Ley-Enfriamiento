@@ -6,7 +6,7 @@ Abrir la terminal en la carpeta del proyecto y crear ambiente de python usando e
 Activar entorno virtual de Python con el siguiente comando: "env\Scripts\activate" ó "env\Scripts\activate.bat"
 
 # PASO 2:
-Instalar en el ambiente virtual las dependencias, en la misma terminal ejecutar el siguiente comando: "pip install fastapi[all]"
+Instalar en el ambiente virtual las dependencias, en la misma terminal ejecutar el siguiente comando: "pip install -r requeriments.txt"
 
 # PASO 3:
 Lanzar el servidor de Uvicorn, en la misma terminal ejecutar: "uvicorn main:app --reload"

@@ -1,27 +1,30 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const buttons = document.querySelectorAll(".num");
+const start = document.getElementById("start");
+const temp_value = document.getElementById('temp-value')
+const placaImage = document.getElementById("placa-image");
 
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      const operation = button.getAttribute("data-operation");
-      const pantalla = document.getElementById("pantalla");
-      if (operation === "equal") {
-        fetch("/calculadora", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ expression: pantalla.value }),
-        })
-          .then((response) => response.json())
-          .then((result) => {
-            pantalla.value = result;
-          })
-      } else if (operation === "clear") {
-        pantalla.value = "";
-      } else {
-        pantalla.value += operation;
-      }
+start.addEventListener("click", async (event) => {
+  event.preventDefault();
+
+  setInterval(async () => {
+    const response = await fetch("/aplicar_soplete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        'temperatura' : parseInt(temp_value.textContent)
+      }),
     });
-  });
+
+    if (response.ok) {
+      const data = await response.json();
+      placaImage.src = `data:image/png;base64,${data.image}`;
+    } else {
+      console.error("Error al actualizar la imagen de la placa.");
+    }
+  }, 2000);
 });
+
+function updateTempValue(value) {
+  temp_value.textContent = value + '°C';
+}

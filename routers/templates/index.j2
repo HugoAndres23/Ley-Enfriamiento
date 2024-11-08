@@ -1,20 +1,15 @@
 {% extends "body.j2" %}{% block content %}
-<h1>Simulación de Enfriamiento de Newton</h1>
-
-<div>
-    <button onclick="startSimulation()">Iniciar Simulación</button>
-    <button onclick="pauseSimulation()">Pausar Simulación</button>
-    <button onclick="resetSimulation()">Reiniciar Simulación</button>
+<h1>Simulación de Enfriamiento de una Placa de Metal</h1>
+<div id="simulation-container">
+    <img id="placa-image" src="data:image/png;base64,{{ image_base64 }}" alt="Distribución de Temperatura">
 </div>
 
-<h2>Temperatura de la Placa</h2>
-<div id="temperature-grid">
-    {% for row in initial_temperature %}
-        {% for temp in row %}
-            <div class="cell" style="background-color: rgb({{ 255 - temp }}, {{ 255 - temp }}, 255);">
-            </div>
-        {% endfor %}
-    {% endfor %}
+<div id="controls">
+    <h3>Controles del Soplete</h3>
+    <label for="temperatura">Temperatura (°C):</label>
+    <input type="range" id="temperatura" name="temperatura" min={{placa.temperatura_ambiente}} max="500" value={{soplete.temperatura}} oninput="updateTempValue(this.value)" required>
+    <span id="temp-value">{{soplete.temperatura}} °C</span>
+    <button id="start">Aplicar Soplete</button>
 </div>
 
 {% endblock %}
