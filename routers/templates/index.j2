@@ -1,5 +1,5 @@
 {% extends "body.j2" %}{% block content %}
-<h1>Simulación de Enfriamiento de una Placa de Metal</h1>
+<h1>Simulación de Ley de Newton</h1>
 <div id="simulation-container">
     <img id="placa-image" src="data:image/png;base64,{{ image_base64 }}" alt="Distribución de Temperatura">
 </div>
@@ -7,7 +7,7 @@
 <div id="controls">
     <h3>Controles del Soplete</h3>
     <label for="temperatura">Temperatura (°C):</label>
-    <input type="range" id="temperatura" name="temperatura" min={{placa.temperatura_ambiente}} max="500" value={{soplete.temperatura}} oninput="updateTempValue(this.value)" required>
+    <input type="range" id="temperatura" name="temperatura" min=0 max="500" value={{soplete.temperatura}} oninput="updateTempValue(this.value)" required>
     <span id="temp-value">{{soplete.temperatura}} °C</span>
     <button id="start">Aplicar Soplete</button>
 </div>

@@ -23,15 +23,14 @@ async def home(request: Request):
     return TEMPLATES.TemplateResponse("index.j2", {
         "request": request,
         "image_base64": image_base64,
-        "soplete": soplete,
-        "placa": placa
+        "soplete": soplete
     })
 
 @app.post("/aplicar_soplete")
 async def configurar_soplete(config: SopleteConfig):
     soplete.temperatura = config.temperatura
-    if soplete.temperatura:
-        placa.aplicar_soplete(soplete, 50)
+    if soplete.temperatura and soplete.temperatura > placa.temperatura[soplete.posicion]:
+        placa.aplicar_soplete(soplete, 100)
         # placa.disipacion += 0.1
 
     image_base64 = crear_grafico(placa)
@@ -43,6 +42,9 @@ def crear_grafico(placa: Placa):
     cmap = LinearSegmentedColormap.from_list("temp_cmap", ["blue", "cyan", "green", "yellow", "orange", "red"])
     heatmap = ax.imshow(placa.temperatura, cmap=cmap, vmin=placa.temperatura_ambiente, vmax=500)
     plt.colorbar(heatmap, ax=ax, orientation="vertical")
+
+    ax.set_xticks([])
+    ax.set_yticks([])
 
     buf = io.BytesIO()
     plt.savefig(buf, format="png")
