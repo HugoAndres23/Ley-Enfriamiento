@@ -1,0 +1,21 @@
+{% extends "body.j2" %}{% block content %}
+<h1>Simulación de Enfriamiento de Newton</h1>
+
+<div>
+    <button onclick="startSimulation()">Iniciar Simulación</button>
+    <button onclick="pauseSimulation()">Pausar Simulación</button>
+    <button onclick="resetSimulation()">Reiniciar Simulación</button>
+</div>
+
+<h2>Temperatura de la Placa</h2>
+<div id="temperature-grid">
+    {% for row in initial_temperature %}
+        {% for temp in row %}
+            <div class="cell" style="background-color: rgb({{ 255 - temp }}, {{ 255 - temp }}, 255);">
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+{% endblock %}
+
