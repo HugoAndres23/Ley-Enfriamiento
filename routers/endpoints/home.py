@@ -30,8 +30,7 @@ async def home(request: Request):
 async def configurar_soplete(config: SopleteConfig):
     soplete.temperatura = config.temperatura
     if soplete.temperatura and soplete.temperatura > placa.temperatura[soplete.posicion]:
-        placa.aplicar_soplete(soplete, 100)
-        # placa.disipacion += 0.1
+        placa.aplicar_soplete(soplete)
 
     image_base64 = crear_grafico(placa)
     return {"message": "Configuración del soplete aplicada.", "image": image_base64}

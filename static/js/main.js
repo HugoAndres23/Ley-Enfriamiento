@@ -22,7 +22,7 @@ start.addEventListener("click", async (event) => {
     } else {
       console.error("Error al actualizar la imagen de la placa.");
     }
-  }, 2000);
+  }, 1000);
 });
 
 function updateTempValue(value) {

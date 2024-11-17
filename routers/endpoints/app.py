@@ -1,44 +1,55 @@
 import numpy as np
+import time
 
 class Soplete:
     def __init__(self):
-        self.temperatura = 0
-        self.radio = 3
-        self.posicion = (15, 0)
+        self.temperatura = 0  # Temperatura del soplete
+        self.radio = 3  # Radio de influencia
+        self.posicion = (15, 15)  # Posición inicial
 
 class Placa:
     def __init__(self):
         self.size = 30
         self.temperatura_ambiente = 20
-        self.disipacion = 0.5
         self.temperatura = np.full((self.size, self.size), self.temperatura_ambiente)
+        self.ultimo_tiempo = time.time()  # Marca de tiempo para cálculo de incremento
+        self.coeficiente_calor = 0.1  # Ajustable para simular transferencia térmica
+        self.coeficiente_disipacion = 0.25  # Ajustable para disipación global
 
-    def aplicar_soplete(self, soplete, incremento):
-        """Aplica calor en una región circular de la placa."""
-        print(f"Temperatura: {self.temperatura[soplete.posicion]}")
+    def aplicar_soplete(self, soplete):
+        """Aplica calor basado en tiempo transcurrido y gradiente térmico."""
+        tiempo_actual = time.time()
+        delta_t = tiempo_actual - self.ultimo_tiempo  # Tiempo transcurrido
+        self.ultimo_tiempo = tiempo_actual
+
         x0, y0 = soplete.posicion
         for x in range(max(0, x0 - soplete.radio), min(self.size, x0 + soplete.radio + 1)):
             for y in range(max(0, y0 - soplete.radio), min(self.size, y0 + soplete.radio + 1)):
                 if (x - x0)**2 + (y - y0)**2 <= soplete.radio**2:
-                    self.temperatura[x, y] = min(self.temperatura[x, y] + incremento, soplete.temperatura)
+                    # Calcular incremento basado en el gradiente térmico y tiempo
+                    delta_T = (
+                        self.coeficiente_calor
+                        * (soplete.temperatura - self.temperatura[x, y])
+                        * delta_t
+                    )
+                    self.temperatura[x, y] += delta_T
+                    # Asegurar que la temperatura no exceda la del soplete
+                    self.temperatura[x, y] = min(self.temperatura[x, y], soplete.temperatura)
+
         self.disipar_calor()
 
-
     def disipar_calor(self):
-        """Simula la disipación del calor en la placa."""
-        for x in range(self.size):
-            for y in range(self.size):
-                vecinos = self.obtener_vecinos(x, y)
-                self.temperatura[x, y] = self.temperatura[x, y] + self.disipacion * (np.mean(vecinos) - self.temperatura[x, y])
-
-    def obtener_vecinos(self, x, y):
-        """Obtiene los vecinos de una celda en la placa."""
-        vecinos = []
-        for dx in [-1, 0, 1]:
-            for dy in [-1, 0, 1]:
-                if dx == 0 and dy == 0:
-                    continue
-                nx, ny = x + dx, y + dy
-                if 0 <= nx < self.size and 0 <= ny < self.size:
-                    vecinos.append(self.temperatura[nx, ny])
-        return vecinos
+        """Disipa el calor en toda la placa usando un Laplaciano."""
+        nueva_temperatura = self.temperatura.copy()
+        for x in range(0, self.size - 1):
+            for y in range(0, self.size - 1):
+                # Calcular Laplaciano con vecinos inmediatos
+                laplaciano = (
+                    self.temperatura[x+1, y] + self.temperatura[x-1, y] +
+                    self.temperatura[x, y+1] + self.temperatura[x, y-1] -
+                    4 * self.temperatura[x, y]
+                )
+                # Aplicar disipación basada en el Laplaciano
+                nueva_temperatura[x, y] += self.coeficiente_disipacion * laplaciano
+        # Actualizar temperatura con los cambios aplicados
+        self.temperatura = nueva_temperatura
