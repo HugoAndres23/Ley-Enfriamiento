@@ -1,5 +1,4 @@
 {% extends "body.j2" %}{% block content %}
-<h1>Simulación de Ley de Newton</h1>
 <div id="simulation-container">
     <img id="placa-image" src="data:image/png;base64,{{ image_base64 }}" alt="Distribución de Temperatura">
 </div>
@@ -10,6 +9,13 @@
     <input type="range" id="temperatura" name="temperatura" min=0 max="500" value={{soplete.temperatura}} oninput="updateTempValue(this.value)" required>
     <span id="temp-value">{{soplete.temperatura}} °C</span>
     <button id="start">Aplicar Soplete</button>
+    <h3>Resultados</h3>
+    {# <p class="hot">Posición del punto caliente: 
+    {% for temp in placa.temperatura %}
+     <span id="hot-spot">{{temp}}</span>
+        
+    {% endfor %}
+    </p> #}
 </div>
 
 {% endblock %}

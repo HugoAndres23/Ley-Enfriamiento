@@ -29,7 +29,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 
 #simulation-container {
@@ -58,4 +57,12 @@ button {
 }
 button:hover {
   background-color: #45a049;
+}
+
+.hot {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+  flex-direction: column;
 }

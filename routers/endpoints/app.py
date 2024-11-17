@@ -53,3 +53,11 @@ class Placa:
                 nueva_temperatura[x, y] += self.coeficiente_disipacion * laplaciano
         # Actualizar temperatura con los cambios aplicados
         self.temperatura = nueva_temperatura
+
+    def enfriar_lentamente(self):
+        """Reduce la temperatura hacia la temperatura ambiente."""
+        for x in range(self.size):
+            for y in range(self.size):
+                if self.temperatura[x, y] > self.temperatura_ambiente:
+                    self.temperatura[x, y] -= 0.01
+                    self.temperatura[x, y] = max(self.temperatura[x, y], self.temperatura_ambiente)
