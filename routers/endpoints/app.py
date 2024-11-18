@@ -4,12 +4,12 @@ import time
 class Soplete:
     def __init__(self):
         self.temperatura = 0  # Temperatura del soplete
-        self.radio = 3  # Radio de influencia
+        self.radio = 0  # Radio de influencia
         self.posicion = (15, 15)  # Posición inicial
 
 class Placa:
     def __init__(self):
-        self.size = 30
+        self.size = 31
         self.temperatura_ambiente = 20
         self.temperatura = np.full((self.size, self.size), self.temperatura_ambiente)
         self.ultimo_tiempo = time.time()  # Marca de tiempo para cálculo de incremento
@@ -59,5 +59,5 @@ class Placa:
         for x in range(self.size):
             for y in range(self.size):
                 if self.temperatura[x, y] > self.temperatura_ambiente:
-                    self.temperatura[x, y] -= 0.01
+                    self.temperatura[x, y] -= 0.005
                     self.temperatura[x, y] = max(self.temperatura[x, y], self.temperatura_ambiente)

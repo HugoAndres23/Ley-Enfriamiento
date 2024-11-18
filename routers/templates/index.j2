@@ -1,21 +1,40 @@
 {% extends "body.j2" %}{% block content %}
 <div id="simulation-container">
     <img id="placa-image" src="data:image/png;base64,{{ image_base64 }}" alt="Distribución de Temperatura">
+    <div class="info_container">
+        <div class="table_container">
+            {% include 'table_temps.j2' %}
+        </div>
+        <span>
+            <h3>Tiempo:</h3>
+            <p id="tiempo">0 Segundos</p>
+        </span>
+    </div>
 </div>
 
 <div id="controls">
     <h3>Controles del Soplete</h3>
+    <div class="slider-container">
+        <label>Posición:</label>
+        <div class="slider-container">
+            <input type="number" id="pos-x" placeholder="X" min="0" max="30">
+            <input type="number" id="pos-y" placeholder="Y" min="0" max="30">
+        </div>
+        <label>Radio:</label>
+        <div class="slider-container">
+            <input type="number" id="radio" min="0" max="30" value="{{soplete.radio}}">
+        </div>
+    </div>
     <label for="temperatura">Temperatura (°C):</label>
-    <input type="range" id="temperatura" name="temperatura" min=0 max="500" value={{soplete.temperatura}} oninput="updateTempValue(this.value)" required>
-    <span id="temp-value">{{soplete.temperatura}} °C</span>
-    <button id="start">Aplicar Soplete</button>
-    <h3>Resultados</h3>
-    {# <p class="hot">Posición del punto caliente: 
-    {% for temp in placa.temperatura %}
-     <span id="hot-spot">{{temp}}</span>
-        
-    {% endfor %}
-    </p> #}
+    <div class="slider-container">
+        <input type="range" id="temperatura" name="temperatura" min="0" max="200" value="{{soplete.temperatura}}" 
+               oninput="updateTempValue(this.value)" required>
+        <span id="temp-value">{{soplete.temperatura}} °C</span>
+    </div>
+    <div class="slider-container">
+        <button id="stop">Parar</button>
+        <button id="start">Aplicar Soplete</button>
+    </div>
 </div>
 
 {% endblock %}

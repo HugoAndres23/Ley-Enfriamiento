@@ -1,0 +1,20 @@
+<div id="data-table">
+    <h3>Puntos Claves</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Posición</th>
+                <th>Temperatura (°C)</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set puntos = [[15, 15], [20, 15], [25, 15]] %}
+        {% for temp in puntos %}
+            <tr>
+                <td>{{temp[1], temp[0]}}</td>
+                <td>{{placa.temperatura[temp[0]][temp[1]]}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

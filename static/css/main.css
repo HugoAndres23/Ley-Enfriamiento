@@ -1,68 +1,226 @@
-:root {
-  --background_light: #ebebeb;
-  --white: #fff;
-  --dark_blue: #0b0a2e;
-  --typography_color: #697586;
-  --yellow: ##ffb627;
-  --blue: #3366cc;
-  --red: #e41414;
-}
-
-* {
+/* General */
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Gotham Book", Roboto, sans-serif;
-}
-
-body {
-  overflow-x: hidden;
-  background-color: var(--background_light);
-}
-
-h1 {
+  background-color: #f5f5f5;
   color: #333;
 }
-main {
-  height: 100vh;
-  background-color: var(--background_light);
+
+/* Contenedor principal */
+#simulation-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 24px;
+  margin: 20px auto;
 }
 
-#simulation-container {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--white);
+#placa-image {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Controles */
 #controls {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#controls h3 {
+  text-align: center;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+#controls label {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Slider */
+.slider-container {
   display: flex;
-  gap: 10px;
-  flex-direction: column;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
-input[type="number"] {
-  width: 50px;
+
+.info_container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 35%;
+  text-align: center;
+  border: 2px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 85%;
+  height: 8px;
+  background: linear-gradient(90deg, #ff6a00, #f6d365);
+  border-radius: 5px;
+  outline: none;
   border: none;
-  background-color: #4CAF50;
+  margin: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #ff6a00;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #ff6a00;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#temp-value {
+  font-size: 1.2em;
+  color: #333;
+  font-weight: bold;
+  width: 15%;
+}
+
+/* Botón */
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #ff6a00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff8500;
+}
+
+/* Posición del punto caliente */
+p.hot {
+  text-align: center;
+  font-size: 1em;
+  color: #666;
+  margin-top: 20px;
+}
+
+p.hot span#hot-spot {
+  font-weight: bold;
+  color: #ff6a00;
+}
+
+/* Estilo general */
+#data-table {
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+#data-table h3 {
+  color: #444;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 1em;
+}
+
+table thead {
+  background-color: #ff6a00;
   color: white;
 }
-button:hover {
-  background-color: #45a049;
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid #ddd;
 }
 
-.hot {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
-  flex-direction: column;
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+table th {
+  text-align: left;
+}
+
+table td {
+  text-align: center;
+}
+
+/* Inputs de número */
+input[type="number"] {
+  width: 70px;
+  height: 40px;
+  padding: 5px 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Placeholder y texto centrado */
+input[type="number"]::placeholder {
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+/* Efecto hover y foco */
+input[type="number"]:hover {
+  border-color: #ff6a00;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #ff6a00;
+  box-shadow: 0 0 5px rgba(255, 106, 0, 0.5);
+}
+
+/* Ajuste del label */
+label {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #444;
+  display: block;
+  margin-bottom: 5px;
 }

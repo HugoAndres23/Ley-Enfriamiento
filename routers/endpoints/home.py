@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Request
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
 import io
 import base64
 from pydantic import BaseModel
@@ -15,6 +14,8 @@ placa = Placa()
 
 class SopleteConfig(BaseModel):
     temperatura: float
+    posicion: tuple
+    radio: int
 
 @app.get("/")
 async def home(request: Request):
@@ -24,29 +25,32 @@ async def home(request: Request):
         "request": request,
         "image_base64": image_base64,
         "soplete": soplete,
-        "placa": placa,
+        "placa": placa
     })
 
 @app.post("/aplicar_soplete")
-async def configurar_soplete(config: SopleteConfig):
+async def configurar_soplete(request: Request, config: SopleteConfig):
+    soplete.radio = config.radio
     soplete.temperatura = config.temperatura
+    soplete.posicion = config.posicion
     if soplete.temperatura and soplete.temperatura > placa.temperatura[soplete.posicion]:
         placa.aplicar_soplete(soplete)
     else:
         placa.enfriar_lentamente()
 
     image_base64 = crear_grafico(placa)
-    return {"message": "Configuración del soplete aplicada.", "image": image_base64}
+    return {"table": TEMPLATES.get_template("table_temps.j2").render({
+        "request": request,
+        "soplete": soplete,
+        "placa": placa,
+    }),
+    "image": image_base64}
 
 
 def crear_grafico(placa: Placa):
     fig, ax = plt.subplots()
-    cmap = LinearSegmentedColormap.from_list("temp_cmap", ["blue", "cyan", "green", "yellow", "orange", "red"])
-    heatmap = ax.imshow(placa.temperatura, cmap='hot', origin="lower", vmin=placa.temperatura_ambiente, vmax=500)
-    plt.colorbar(heatmap, ax=ax, orientation="vertical")
-
-    ax.set_xticks([])
-    ax.set_yticks([])
+    heatmap = ax.imshow(placa.temperatura, cmap='hot', origin="lower", vmin=placa.temperatura_ambiente, vmax=200)
+    plt.colorbar(heatmap, ax=ax, orientation="vertical", label='Temperatura')
 
     buf = io.BytesIO()
     plt.savefig(buf, format="png")
