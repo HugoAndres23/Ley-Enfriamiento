@@ -7,6 +7,14 @@ body {
   color: #333;
 }
 
+main {
+  text-align: center;
+}
+
+main h1{
+  color: #ff6a00;
+}
+
 /* Contenedor principal */
 #simulation-container {
   display: flex;
@@ -223,4 +231,16 @@ label {
   color: #444;
   display: block;
   margin-bottom: 5px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 15%;
+  border: 2px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

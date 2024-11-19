@@ -3,18 +3,18 @@ import time
 
 class Soplete:
     def __init__(self):
-        self.temperatura = 0  # Temperatura del soplete
-        self.radio = 0  # Radio de influencia
-        self.posicion = (15, 15)  # Posición inicial
+        self.temperatura = 0
+        self.radio = 0
+        self.posicion = (15, 15)
 
 class Placa:
     def __init__(self):
         self.size = 31
         self.temperatura_ambiente = 20
         self.temperatura = np.full((self.size, self.size), self.temperatura_ambiente)
-        self.ultimo_tiempo = time.time()  # Marca de tiempo para cálculo de incremento
-        self.coeficiente_calor = 0.1  # Ajustable para simular transferencia térmica
-        self.coeficiente_disipacion = 0.25  # Ajustable para disipación global
+        self.ultimo_tiempo = time.time()
+        self.coeficiente_calor = 0.1
+        self.coeficiente_disipacion = 0.25
 
     def aplicar_soplete(self, soplete):
         """Aplica calor basado en tiempo transcurrido y gradiente térmico."""
