@@ -19,7 +19,7 @@ class Placa:
     def aplicar_soplete(self, soplete):
         """Aplica calor basado en tiempo transcurrido y gradiente térmico."""
         tiempo_actual = time.time()
-        delta_t = tiempo_actual - self.ultimo_tiempo  # Tiempo transcurrido
+        delta_t = tiempo_actual - self.ultimo_tiempo
         self.ultimo_tiempo = tiempo_actual
 
         x0, y0 = soplete.posicion
@@ -33,7 +33,6 @@ class Placa:
                         * delta_t
                     )
                     self.temperatura[x, y] += delta_T
-                    # Asegurar que la temperatura no exceda la del soplete
                     self.temperatura[x, y] = min(self.temperatura[x, y], soplete.temperatura)
 
         self.disipar_calor()
@@ -49,9 +48,7 @@ class Placa:
                     self.temperatura[x, y+1] + self.temperatura[x, y-1] -
                     4 * self.temperatura[x, y]
                 )
-                # Aplicar disipación basada en el Laplaciano
                 nueva_temperatura[x, y] += self.coeficiente_disipacion * laplaciano
-        # Actualizar temperatura con los cambios aplicados
         self.temperatura = nueva_temperatura
 
     def enfriar_lentamente(self):
